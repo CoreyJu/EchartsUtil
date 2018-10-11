@@ -2,42 +2,9 @@
  * @author: kqzhu
  * @date: 2018/09/10
  * @name: EchartsUtil 1.0
- * @description: 本工具是基于echarts3.0进行的二次开发封装，不用书写大量的重复的代码，只需简单传递少量的公共参数，调用方法即可呈现图形
+ * @description: 本工具是基于echarts4.0进行的二次开发封装，不用书写大量的重复的代码，只需简单传递少量的公共参数，调用方法即可呈现图形
  */
 
-
-
-/**
- * 检测数组是否存在
- */
-Array.prototype.contains = function (obj) {
-    var i = this.length;
-    while (i--) {
-        if (this[i] === obj) {
-            return true;
-        }
-    }
-    return false;
-} ;
-/**
- * 数组中最大值 最小值
- * @param array
- * @returns
- */
-Array.prototype.max = function(){
-    return Math.max.apply({},this) ;
-} ;
-Array.prototype.min = function(){
-    return Math.min.apply({},this) ;
-} ;
-/**
- * 判断是否为整数
- * @param obj
- * @returns {Boolean}
- */
-function isInteger(obj) {
-    return obj%1 === 0
-}
 
 /**
  * 为图形设置容器
@@ -83,6 +50,39 @@ function setContainer(containerId) {
     container.style.width = containerWidth+"px";
     container.style.height = containerHeight+"px";
 }
+
+/**
+ * 检测数组是否存在
+ */
+Array.prototype.contains = function (obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+} ;
+/**
+ * 数组中最大值 最小值
+ * @param array
+ * @returns
+ */
+Array.prototype.max = function(){
+    return Math.max.apply({},this) ;
+} ;
+Array.prototype.min = function(){
+    return Math.min.apply({},this) ;
+} ;
+/**
+ * 判断是否为整数
+ * @param obj
+ * @returns {Boolean}
+ */
+function isInteger(obj) {
+    return obj%1 === 0
+}
+
 
 /**
  *
