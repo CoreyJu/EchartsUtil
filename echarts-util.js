@@ -9,7 +9,7 @@
 /**
  * 为图形设置容器
  */
-function setContainer(containerId) {
+Array.prototype.setContainer = function (containerId) {
     var containerWidth;
     var containerHeight;
     var container = eval("document.getElementById('" + containerId + "')");
@@ -49,10 +49,19 @@ function setContainer(containerId) {
     }
     container.style.width = containerWidth+"px";
     container.style.height = containerHeight+"px";
-}
-
+};
+/**
+ * 判断是否为整数
+ * @param obj
+ * @returns {Boolean}
+ */
+Array.prototype.isInteger = function(obj) {
+    return obj%1 === 0
+};
 /**
  * 检测数组是否存在
+ * @param obj
+ * @returns {Boolean}
  */
 Array.prototype.contains = function (obj) {
     var i = this.length;
@@ -74,14 +83,6 @@ Array.prototype.max = function(){
 Array.prototype.min = function(){
     return Math.min.apply({},this) ;
 } ;
-/**
- * 判断是否为整数
- * @param obj
- * @returns {Boolean}
- */
-function isInteger(obj) {
-    return obj%1 === 0
-}
 
 
 /**
@@ -169,10 +170,187 @@ var zhuEcharts = {
             return {groups : groups ,category : names , series : series};
         },
 
+        BarFormate : function (data,type) {
+            switch (type){
+                case 1:
+                    //用于存储类型名称
+                    var groups = new Array();
+                    //用于存储data.name数据
+                    var names = new Array();
+                    //存储返回series数据 （一个或者多个）
+                    var series = new Array();
+
+                    for(var i=0; i<data.length; i++){
+                        //判断data[i].group是否存在数租groups中
+                        if (!groups.contains(data[i].group)) {
+                            //不存在则跳进 存放
+                            groups.push(data[i].group);
+                        }
+
+                        //判断name数据是否存在 数组names中
+                        if (!names.contains(data[i].name)) {
+                            //不存在则跳进 存放
+                            names.push(data[i].name);
+                        }
+                    }
+
+                    //遍历分类
+                    for (var i=0; i<groups.length; i++){
+                        //定义一个series中间变量
+                        var temp_series = {};
+                        //定义data.value数据存储
+                        var temp_data = new  Array();
+                        //遍历所有数据
+                        for(var j=0; j<data.length; j++){
+                            //遍历data.name数据
+                            for(var k=0; k<names.length; k++){
+                                //判断所有分类中的所有数据含name数据分开
+                                if(groups[i] == data[j].group && names[k] == data[j].name){
+                                    temp_data.push(data[j].value);
+                                }
+                            }
+                        }
+                        temp_series = {name:groups[i],type:"bar",data:temp_data,smooth: true};
+                        series.push(temp_series);
+
+                    }
+                    return {groups : groups ,category : names , series : series};
+                case 2:
+                    //用于存储类型名称
+                    var groups = new Array();
+                    //用于存储data.name数据
+                    var names = new Array();
+                    //存储返回series数据 （一个或者多个）
+                    var series = new Array();
+
+                    for(var i=0; i<data.length; i++){
+                        //判断data[i].group是否存在数租groups中
+                        if (!groups.contains(data[i].group)) {
+                            //不存在则跳进 存放
+                            groups.push(data[i].group);
+                        }
+
+                        //判断name数据是否存在 数组names中
+                        if (!names.contains(data[i].name)) {
+                            //不存在则跳进 存放
+                            names.push(data[i].name);
+                        }
+                    }
+
+                    //遍历分类
+                    for (var i=0; i<groups.length; i++){
+                        //定义一个series中间变量
+                        var temp_series = {};
+                        //定义data.value数据存储
+                        var temp_data = new  Array();
+                        //遍历所有数据
+                        for(var j=0; j<data.length; j++){
+                            //遍历data.name数据
+                            for(var k=0; k<names.length; k++){
+                                //判断所有分类中的所有数据含name数据分开
+                                if(groups[i] == data[j].group && names[k] == data[j].name){
+                                    temp_data.push(data[j].value);
+                                }
+                            }
+                        }
+                        temp_series = {name:groups[i],type:"bar",data:temp_data,areaStyle: {}};
+                        series.push(temp_series);
+
+                    }
+                    return {groups : groups ,category : names , series : series};
+                case 3:
+                    //用于存储类型名称
+                    var groups = new Array();
+                    //用于存储data.name数据
+                    var names = new Array();
+                    //存储返回series数据 （一个或者多个）
+                    var series = new Array();
+
+                    for(var i=0; i<data.length; i++){
+                        //判断data[i].group是否存在数租groups中
+                        if (!groups.contains(data[i].group)) {
+                            //不存在则跳进 存放
+                            groups.push(data[i].group);
+                        }
+
+                        //判断name数据是否存在 数组names中
+                        if (!names.contains(data[i].name)) {
+                            //不存在则跳进 存放
+                            names.push(data[i].name);
+                        }
+                    }
+
+                    //遍历分类
+                    for (var i=0; i<groups.length; i++){
+                        //定义一个series中间变量
+                        var temp_series = {};
+                        //定义data.value数据存储
+                        var temp_data = new  Array();
+                        //遍历所有数据
+                        for(var j=0; j<data.length; j++){
+                            //遍历data.name数据
+                            for(var k=0; k<names.length; k++){
+                                //判断所有分类中的所有数据含name数据分开
+                                if(groups[i] == data[j].group && names[k] == data[j].name){
+                                    temp_data.push(data[j].value);
+                                }
+                            }
+                        }
+                        temp_series = {name:groups[i],type:"bar",data:temp_data,smooth: true,areaStyle: {}};
+                        series.push(temp_series);
+
+                    }
+                    return {groups : groups ,category : names , series : series};
+                default:
+                    //用于存储类型名称
+                    var groups = new Array();
+                    //用于存储data.name数据
+                    var names = new Array();
+                    //存储返回series数据 （一个或者多个）
+                    var series = new Array();
+
+                    for(var i=0; i<data.length; i++){
+                        //判断data[i].group是否存在数租groups中
+                        if (!groups.contains(data[i].group)) {
+                            //不存在则跳进 存放
+                            groups.push(data[i].group);
+                        }
+
+                        //判断name数据是否存在 数组names中
+                        if (!names.contains(data[i].name)) {
+                            //不存在则跳进 存放
+                            names.push(data[i].name);
+                        }
+                    }
+
+                    //遍历分类
+                    for (var i=0; i<groups.length; i++){
+                        //定义一个series中间变量
+                        var temp_series = {};
+                        //定义data.value数据存储
+                        var temp_data = new  Array();
+                        //遍历所有数据
+                        for(var j=0; j<data.length; j++){
+                            //遍历data.name数据
+                            for(var k=0; k<names.length; k++){
+                                //判断所有分类中的所有数据含name数据分开
+                                if(groups[i] == data[j].group && names[k] == data[j].name){
+                                    temp_data.push(data[j].value);
+                                }
+                            }
+                        }
+                        temp_series = {name:groups[i],type:"bar",data:temp_data};
+                        series.push(temp_series);
+
+                    }
+                    return {groups : groups ,category : names , series : series};
+            }
+
+        },
 
         LineFormate : function (data,type) {
             switch (type){
-                case "smooth":
+                case 1:
                     //用于存储类型名称
                     var groups = new Array();
                     //用于存储data.name数据
@@ -215,7 +393,7 @@ var zhuEcharts = {
 
                     }
                     return {groups : groups ,category : names , series : series};
-                case "area":
+                case 2:
                     //用于存储类型名称
                     var groups = new Array();
                     //用于存储data.name数据
@@ -258,7 +436,7 @@ var zhuEcharts = {
 
                     }
                     return {groups : groups ,category : names , series : series};
-                case "areaSmooth":
+                case 3:
                     //用于存储类型名称
                     var groups = new Array();
                     //用于存储data.name数据
@@ -578,7 +756,7 @@ var zhuEcharts = {
                     tooltip: {
                         show: true,
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{b} : {c} ({d}%)"
                     },
                     //组建
                     legend : {
@@ -623,7 +801,7 @@ var zhuEcharts = {
                     tooltip: {
                         show: true,
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{b} : {c} ({d}%)"
                     },
                     //组建
                     legend : {
@@ -669,7 +847,7 @@ var zhuEcharts = {
                     tooltip: {
                         show: true,
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{b} : {c} ({d}%)"
                     },
                     //组建
                     legend : {
@@ -715,7 +893,7 @@ var zhuEcharts = {
                     tooltip: {
                         show: true,
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{b} : {c} ({d}%)"
                     },
                     //组建
                     legend : {
@@ -761,7 +939,7 @@ var zhuEcharts = {
                     tooltip: {
                         show: true,
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{b} : {c} ({d}%)"
                     },
                     //组建
                     legend : {
@@ -807,7 +985,7 @@ var zhuEcharts = {
                     tooltip: {
                         show: true,
                         trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        formatter: "{b} : {c} ({d}%)"
                     },
                     //组建
                     legend : {
@@ -850,7 +1028,7 @@ var zhuEcharts = {
      * @param data : json 数据
      */
     bar : function (data,type,title){
-        var datas = zhuEcharts.echartsDataFormate.GroupFormate(data,type);
+        var datas = zhuEcharts.echartsDataFormate.BarFormate(data,type);
         var option = {
             //标题
             title :{
@@ -987,30 +1165,365 @@ var zhuEcharts = {
      * @param subtext ：副标题<br>
      * @param data : json 数据
      */
-    funnel : function (title,subtext,data){
-        var datas = zhuEcharts.echartsDataFormate.FunnelFormate(data, 'funnel');
-        var option = {
-            //标题
-            title :{
-                text : title || "",	//标题
-                subtext : subtext || "", //副标题
-                x : 'center',	//位置默认居中
-            },
-            //提示
-            tooltip: {
-                show: true,
-                trigger: 'item',
-                formatter: "{a} <br/>{b} ({c}%)"
-            },
-            //组建
-            legend: {
-                orient: 'vertical', //垂直：vertical； 水平 horizontal
-                left: 'left',	//位置默认左
-                data : datas.groups
-            },
-            series: datas.series
-        };
-        return option;
+    funnel : function (data,type,title){
+        var datas = zhuEcharts.echartsDataFormate.NoGroupFormate(data);
+        switch (type){
+            case 1:
+                var option1 = {
+                    //标题
+                    title :{
+                        text : title || "",	//标题
+                        x : 'center',	//位置默认居中
+                    },
+                    //提示
+                    tooltip: {
+                        show: true,
+                        trigger: 'item',
+                        formatter: "{b} : {c}"
+                    },
+                    //组建
+                    legend: {
+                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        left: 'left',	//位置默认左
+                        data : datas.categorys
+                    },
+                    series: [
+                        {
+                            type:'funnel',
+                            left: '10%',
+                            top: 60,
+                            bottom: 60,
+                            width: '80%',
+                            sort: 'ascending',
+                            gap: 2,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'inside'
+                                },
+                                emphasis: {
+                                    textStyle: {
+                                        fontSize: 20
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    length: 10,
+                                    lineStyle: {
+                                        width: 1,
+                                        type: 'solid'
+                                    }
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 1
+                                }
+                            },
+                            data: datas.data
+                        }
+                    ]
+                };
+                return option1;
+            case 2:
+                var option2 = {
+                    //标题
+                    title :{
+                        text : title || "",	//标题
+                        x : 'center',	//位置默认居中
+                    },
+                    //提示
+                    tooltip: {
+                        show: true,
+                        trigger: 'item',
+                        formatter: "{b} : {c}"
+                    },
+                    //组建
+                    legend: {
+                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        left: 'left',	//位置默认左
+                        data : datas.categorys
+                    },
+                    series: [
+                        {
+                            type:'funnel',
+                            left: '10%',
+                            top: 60,
+                            bottom: 60,
+                            width: '80%',
+                            funnelAlign: 'left',
+                            gap: 2,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'inside'
+                                },
+                                emphasis: {
+                                    textStyle: {
+                                        fontSize: 20
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    length: 10,
+                                    lineStyle: {
+                                        width: 1,
+                                        type: 'solid'
+                                    }
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 1
+                                }
+                            },
+                            data: datas.data
+                        }
+                    ]
+                };
+                return option2;
+            case 3:
+                var option3 = {
+                    //标题
+                    title :{
+                        text : title || "",	//标题
+                        x : 'center',	//位置默认居中
+                    },
+                    //提示
+                    tooltip: {
+                        show: true,
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} ({c}%)"
+                    },
+                    //组建
+                    legend: {
+                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        left: 'left',	//位置默认左
+                        data : datas.categorys
+                    },
+                    series: [
+                        {
+                            type:'funnel',
+                            left: '10%',
+                            top: 60,
+                            bottom: 60,
+                            width: '80%',
+                            funnelAlign: 'right',
+                            gap: 2,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'inside'
+                                },
+                                emphasis: {
+                                    textStyle: {
+                                        fontSize: 20
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    length: 10,
+                                    lineStyle: {
+                                        width: 1,
+                                        type: 'solid'
+                                    }
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 1
+                                }
+                            },
+                            data: datas.data
+                        }
+                    ]
+                };
+                return option3;
+            case 4:
+                var option4 = {
+                    //标题
+                    title :{
+                        text : title || "",	//标题
+                        x : 'center',	//位置默认居中
+                    },
+                    //提示
+                    tooltip: {
+                        show: true,
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} ({c}%)"
+                    },
+                    //组建
+                    legend: {
+                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        left: 'left',	//位置默认左
+                        data : datas.categorys
+                    },
+                    series: [
+                        {
+                            type:'funnel',
+                            left: '10%',
+                            top: 60,
+                            bottom: 60,
+                            width: '80%',
+                            sort: 'ascending',
+                            funnelAlign: 'left',
+                            gap: 2,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'inside'
+                                },
+                                emphasis: {
+                                    textStyle: {
+                                        fontSize: 20
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    length: 10,
+                                    lineStyle: {
+                                        width: 1,
+                                        type: 'solid'
+                                    }
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 1
+                                }
+                            },
+                            data: datas.data
+                        }
+                    ]
+                };
+                return option4;
+            case 5:
+                var option5 = {
+                    //标题
+                    title :{
+                        text : title || "",	//标题
+                        x : 'center',	//位置默认居中
+                    },
+                    //提示
+                    tooltip: {
+                        show: true,
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} ({c}%)"
+                    },
+                    //组建
+                    legend: {
+                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        left: 'left',	//位置默认左
+                        data : datas.categorys
+                    },
+                    series: [
+                        {
+                            type:'funnel',
+                            left: '10%',
+                            top: 60,
+                            bottom: 60,
+                            width: '80%',
+                            sort: 'ascending',
+                            funnelAlign: 'right',
+                            gap: 2,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'inside'
+                                },
+                                emphasis: {
+                                    textStyle: {
+                                        fontSize: 20
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    length: 10,
+                                    lineStyle: {
+                                        width: 1,
+                                        type: 'solid'
+                                    }
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 1
+                                }
+                            },
+                            data: datas.data
+                        }
+                    ]
+                };
+                return option5;
+            default:
+                var option = {
+                    //标题
+                    title :{
+                        text : title || "",	//标题
+                        x : 'center',	//位置默认居中
+                    },
+                    //提示
+                    tooltip: {
+                        show: true,
+                        trigger: 'item',
+                        formatter: "{b} : {c}"
+                    },
+                    //组建
+                    legend: {
+                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        left: 'left',	//位置默认左
+                        data : datas.categorys
+                    },
+                    series: [
+                        {
+                            type:'funnel',
+                            left: '10%',
+                            top: 60,
+                            bottom: 60,
+                            width: '80%',
+                            gap: 2,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'inside'
+                                },
+                                emphasis: {
+                                    textStyle: {
+                                        fontSize: 20
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    length: 10,
+                                    lineStyle: {
+                                        width: 1,
+                                        type: 'solid'
+                                    }
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 1
+                                }
+                            },
+                            data: datas.data
+                        }
+                    ]
+                };
+                return option;
+        }
     },
     /**
      * 仪表图
@@ -1043,7 +1556,8 @@ var zhuEcharts = {
 		 */
 	renderChart : function (option,echartId,theme){
             var container = eval("document.getElementById('" + echartId + "')");
-            setContainer(echartId);
+            var test = new Array();
+            test.setContainer(echartId);
             var myChart = echarts.init(container,theme);
             //当无数据的时候显示；
         /*    if (option.series[0].data.length <= 0) {

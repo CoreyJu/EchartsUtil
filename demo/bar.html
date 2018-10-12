@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常规柱状图</title>
+    <script src="../src/jquery-3.2.1.js"></script>
+    <script src="../src/echarts-4.0.js"></script>
+    <script src="../echarts-util.js"></script>
+    <style rel="stylesheet" type="text/css">
+        body{
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+<div id="chartid"></div>
+<script type="text/javascript">
+    $.ajax({
+        url : 'data/group.json', 　
+        type : 'get',　　　　　　
+        dataType : 'json',
+        success: function(data){　
+            console.log(data)　　
+            var option = zhuEcharts.bar(data);
+            var initChart = zhuEcharts.renderChart(option,"chartid");　　　　　　
+        }
+    });
+</script>
+</body>
+</html>
