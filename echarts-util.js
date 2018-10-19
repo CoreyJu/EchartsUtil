@@ -528,7 +528,7 @@ var zhuEcharts = {
         /**
          * 雷达图数据格式化
          */
-        RadarFormate : function(data,type){
+        RadarFormate : function(data){
             //用于存储类型名称
             var groups = new Array();
             //用于存储data.name数据
@@ -575,7 +575,7 @@ var zhuEcharts = {
                 }
                 temp_data.push({value:dataValues,name:groups[i]});
             }
-            series = {type:type,data:temp_data};
+            series = {type:"radar",data:temp_data};
             return { indicators : indicators ,groups : groups ,category : names , series : series};
         },
         /**
@@ -734,6 +734,53 @@ var zhuEcharts = {
     },
 
     //生成图形option
+    /**
+     * 自由图
+     * @param data : 对象数组
+     * @param title ： 标题 字符串类型加引号
+     */
+    free : function (data,title){
+        var basicOption = {
+            title :{
+                text : title || "",	//标题
+                x : 'center',	//位置默认居中
+            },
+            grid: {
+                left: '50',
+                right: '20',
+                bottom: '15%',
+                top: '15%',
+                containLabel: false
+            },
+            tooltip: {
+                trigger: 'item',
+                textStyle:{
+                    fontSize:11,
+                },
+                axisPointer: {
+                    type:'shadow'
+                }
+            },
+            legend: {
+                x: 'left',
+                itemWidth: 15,
+                itemHeight: 10
+            },
+            dataset: {
+                // 提供一份数据。
+                source: data
+            },
+            // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+            xAxis: {type: 'category'},
+            // 声明一个 Y 轴，数值轴。
+            yAxis: {},
+            // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+            series: [
+                {type:'bar'}
+            ]
+        };
+        return basicOption;
+    },
 
     /**
      * 饼图
@@ -1102,7 +1149,6 @@ var zhuEcharts = {
                 {
                     type : 'category',
                     data : datas.category,
-                    boundaryGap: false,
                     splitLine:{
                         show:true,
                     },
@@ -1125,13 +1171,12 @@ var zhuEcharts = {
      * @param subtext ：副标题<br>
      * @param data : json 数据
      */
-    radar : function (title,subtext,data){
-        var datas = zhuEcharts.echartsDataFormate.RadarFormate(data, 'radar');
+    radar : function (data,title){
+        var datas = zhuEcharts.echartsDataFormate.RadarFormate(data);
         var option = {
             //标题
             title :{
                 text : title || "",	//标题
-                subtext : subtext || "", //副标题
                 x : 'center',	//位置默认居中
             },
             //提示
@@ -1183,7 +1228,7 @@ var zhuEcharts = {
                     },
                     //组建
                     legend: {
-                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        orient: 'horizontal', //垂直：vertical； 水平 horizontal
                         left: 'left',	//位置默认左
                         data : datas.categorys
                     },
@@ -1242,7 +1287,7 @@ var zhuEcharts = {
                     },
                     //组建
                     legend: {
-                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        orient: 'horizontal', //垂直：vertical； 水平 horizontal
                         left: 'left',	//位置默认左
                         data : datas.categorys
                     },
@@ -1301,7 +1346,7 @@ var zhuEcharts = {
                     },
                     //组建
                     legend: {
-                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        orient: 'horizontal', //垂直：vertical； 水平 horizontal
                         left: 'left',	//位置默认左
                         data : datas.categorys
                     },
@@ -1360,7 +1405,7 @@ var zhuEcharts = {
                     },
                     //组建
                     legend: {
-                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        orient: 'horizontal', //垂直：vertical； 水平 horizontal
                         left: 'left',	//位置默认左
                         data : datas.categorys
                     },
@@ -1420,7 +1465,7 @@ var zhuEcharts = {
                     },
                     //组建
                     legend: {
-                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        orient: 'horizontal', //垂直：vertical； 水平 horizontal
                         left: 'left',	//位置默认左
                         data : datas.categorys
                     },
@@ -1480,7 +1525,7 @@ var zhuEcharts = {
                     },
                     //组建
                     legend: {
-                        orient: 'vertical', //垂直：vertical； 水平 horizontal
+                        orient: 'horizontal', //垂直：vertical； 水平 horizontal
                         left: 'left',	//位置默认左
                         data : datas.categorys
                     },
@@ -1537,7 +1582,6 @@ var zhuEcharts = {
             //标题
             title :{
                 text : title || "",	//标题
-                subtext : subtext || "", //副标题
                 x : 'center',	//位置默认居中
             },
             //提示
@@ -1556,8 +1600,8 @@ var zhuEcharts = {
 		 */
 	renderChart : function (option,echartId,theme){
             var container = eval("document.getElementById('" + echartId + "')");
-            var test = new Array();
-            test.setContainer(echartId);
+            var zhuChart = new Array();
+            zhuChart.setContainer(echartId);
             var myChart = echarts.init(container,theme);
             //当无数据的时候显示；
         /*    if (option.series[0].data.length <= 0) {
@@ -1568,7 +1612,7 @@ var zhuEcharts = {
             }*/
             myChart.setOption(option);	// 为echarts对象加载数据
             window.onresize = function(){
-                setContainer(echartId);
+                zhuChart.setContainer(echartId);
                 myChart.resize();
             };
             return myChart;

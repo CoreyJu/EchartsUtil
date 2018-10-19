@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二维数组呈现图形</title>
+    <script src="../src/jquery-3.2.1.js"></script>
+    <script src="../src/echarts-4.0.js"></script>
+    <script src="../echarts-util.js"></script>
+</head>
+<body>
+<div id="chart"></div>
+<script type="text/javascript">
+    $.ajax({
+        url : 'data/arrayobject.json',
+        type : 'get',
+        dataType : 'json',
+        success: function(data){
+            var option1 = {
+                dataset: {
+                    source: [
+                        [12, 323, 11.2],
+                        [23, 167, 8.3],
+                        [81, 284, 12],
+                        [91, 413, 4.1],
+                        [13, 287, 13.5]
+                    ]
+                },
+                visualMap: {
+                    show: false,
+                    dimension: 2, // 指向第三列（列序号从 0 开始记，所以设置为 2）。
+                    min: 2, // 需要给出数值范围，最小数值。
+                    max: 15, // 需要给出数值范围，最大数值。
+                    inRange: {
+                        // 气泡尺寸：5 像素到 60 像素。
+                        symbolSize: [5, 60]
+                    }
+                },
+                xAxis: {},
+                yAxis: {},
+                series: {
+                    type: 'scatter'
+                }
+            };
+            var option2 = {
+                legend: {},
+                tooltip: {},
+                dataset: {
+                    // 提供一份数据。
+                    source: [
+                        ['product', '2015', '2016', '2017'],
+                        ['Matcha Latte', 43.3, 85.8, 93.7],
+                        ['Milk Tea', 83.1, 73.4, 55.1],
+                        ['Cheese Cocoa', 86.4, 65.2, 82.5],
+                        ['Walnut Brownie', 72.4, 53.9, 39.1]
+                    ]
+                },
+                // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+                xAxis: {type:'category'},
+                // 声明一个 Y 轴，数值轴。
+                yAxis: {},
+                // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+                series: [
+                    {type: 'bar'},
+                    {type: 'bar'},
+                    {type: 'bar'},
+                    {type: 'line'}
+                ]
+            };
+            var option3 = {
+                legend: {},
+                tooltip: {},
+                dataset: {
+                    // 这里指定了维度名的顺序，从而可以利用默认的维度到坐标轴的映射。
+                    // 如果不指定 dimensions，也可以通过指定 series.encode 完成映射，参见后文。
+                    dimensions: ['核心素质观测点', '班级最低值', '班级平均值', '班级最高值'],
+                    source:[
+                        {"核心素质观测点": "政治表现", "班级最低值": 43.3, "班级平均值": 85.8, "班级最高值": 93.7},
+                        {"核心素质观测点": "诚信表现", "班级最低值": 83.1, "班级平均值": 73.4, "班级最高值": 55.1},
+                        {"核心素质观测点": "宿舍表现", "班级最低值": 86.4, "班级平均值": 65.2, "班级最高值": 82.5},
+                        {"核心素质观测点": "课堂出勤", "班级最低值": 72.4, "班级平均值": 53.9, "班级最高值": 39.1}
+                    ]
+                },
+                xAxis: {type: 'category'},
+                yAxis: {},
+                series: [
+                    {type: 'bar'},
+                    {type: 'bar'},
+                    {type: 'bar'}
+                ]
+            };
+            var option = zhuEcharts.free(data);
+            console.log(option)
+            option.series=[
+                {type:'bar'},
+                {type:'bar'}
+            ];
+            var initChart = zhuEcharts.renderChart(option,"chart");　　　
+        }
+    });
+</script>
+</body>
+</html>
