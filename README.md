@@ -5,25 +5,24 @@
 
 1、引入echart4.0(可官网下载最新版)和echart-util.js文件；
 
-   <script src="../src/echarts-4.0.js"></script>
-   
-   <script src="../echarts-util.js"></script>
+     <script src="../src/echarts-4.0.js"></script>
+     <script src="../echarts-util.js"></script>
    
 2、定义一个图形dom容器；
 
-<echart id="chartid" width="100%" height="400px"></echart>
-
+      <echart id="chartid" width="100%" height="400px"></echart>
+      
 id必要属性，width、height不必要属性，根据需要可选择省略不写还是自定义
 
 3、传入数据调用图形方法生成option；
 
     var option = zhuEcharts.line(data,3,"本月销售情况");
     
-    option为echart的配置项，zhuEcharts为方法体，line表示生成线图的方法，传入的第一个参数为图形所需要的数据,必要参数，传入的第二个参数为图表类型，不必要参数（可选，1表示曲线，2表示折线面积，3表示曲线面积），传入的第三个参数为图表的标题，不必要参数（这个参数需要加双引号）
+   option为echart的配置项，zhuEcharts为方法体，line表示生成线图的方法，传入的第一个参数为图形所需要的数据,必要参数，传入的第二个参数为图表类型，不必要参数（可选，1表示曲线，2表示折线面积，3表示曲线面积），传入的第三个参数为图表的标题，不必要参数（这个参数需要加双引号）
     
 4、传入option和容器id调用绘制方法生成图表；
 
-  var initChart = zhuEcharts.renderChart(option,"chartid","purple");　
+    var initChart = zhuEcharts.renderChart(option,"chartid","purple");　
   
-  initChart是定义这个图表对象，方便后面操作，可不定义，renderChart为绘制图表方法，传入的第一个参数为上面方法返回的option，也可以自定义配置项或者对生成的option做相应的修改，必要参数，传入的第二个参数为DOM容器ID，必要参数（加双引号）,传入的第三个参数为图形需要引用的echart样式主题名称，不必要参数（加双引号,目前插件集成了5套主题样式供选择，basic常规色，dark深黑色，roma灰黑色，purple紫色，vintage蓝色）
+   initChart是定义这个图表对象，方便后面操作，可不定义，renderChart为绘制图表方法，传入的第一个参数为上面方法返回的option，也可以自定义配置项或者对生成的option做相应的修改，必要参数，传入的第二个参数为DOM容器ID，必要参数（加双引号）,传入的第三个参数为图形需要引用的echart样式主题名称，不必要参数（加双引号,目前插件集成了5套主题样式供选择，basic常规色，dark深黑色，roma灰黑色，purple紫色，vintage蓝色）
 
