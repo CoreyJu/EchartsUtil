@@ -12,7 +12,7 @@
 
       <echart id="chartid" width="100%" height="400px"></echart>
       
-id必要属性，width、height不必要属性，根据需要可选择省略不写还是自定义
+id必要属性，width、height不必要属性，根据需要可选择不写还是自定义宽高
 
 3、传入数据调用图形方法生成option；
 
