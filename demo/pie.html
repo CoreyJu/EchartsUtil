@@ -6,11 +6,6 @@
     <script src="../src/jquery-3.2.1.js"></script>
     <script src="../src/echarts-4.0.js"></script>
     <script src="../echarts-util.js"></script>
-    <style rel="stylesheet" type="text/css">
-        body{
-            width: 50%;
-        }
-    </style>
 </head>
 <body>
 <div id="chartid"></div>
@@ -21,7 +16,14 @@
         dataType : 'json',
         success: function(data){　　　
             var option = zhuEcharts.pie(data);
-            var initChart = zhuEcharts.renderChart(option,"chartid");　　　　　　
+            var initChart = zhuEcharts.renderChart(option,"chartid");
+            var myoption = {
+                color:["#EEB422"],
+                title:{
+                    text:"开奖号电饭锅尽快"
+                }
+            }　　　　　　
+            initChart.setOption(myoption);
         }
     });
 </script>

@@ -20,10 +20,10 @@
         type : 'get',　　　　　　
         dataType : 'json',
         success: function(data){　　
-            var option = zhuEcharts.line(data,3);
-            option.series[0].type = "bar";
+            var option = zhuEcharts.line(data,4);
+//            option.series[0].type = "bar";
 //            option.xAxis.boundaryGap = ['20%', '20%'];
-            var initChart = zhuEcharts.renderChart(option,"chartid");　　　
+            var initChart = zhuEcharts.renderChart(option,"chartid","purple");　　　
         }
     });
 </script>

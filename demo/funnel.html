@@ -20,7 +20,7 @@
         type : 'get',　　　　　　
         dataType : 'json',
         success: function(data){　　　
-            var option = zhuEcharts.funnel(data,6);
+            var option = zhuEcharts.funnel(data);
             var initChart = zhuEcharts.renderChart(option,"chartid");　　　　　　
         }
     });
